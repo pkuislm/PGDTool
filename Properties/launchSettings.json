@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PGDTool": {
+      "commandName": "Project",
+      "commandLineArgs": "\"E:\\GalGames_Work\\OnWork\\零れ落ちる少女たち ～パパ活JC快楽堕ちの記録～\\images\\TITLE_BTN_CONTINUE.PGD\"\r\n\"E:\\GalGames_Work\\OnWork\\零れ落ちる少女たち ～パパ活JC快楽堕ちの記録～\\images\\TITLE_BTN_CONTINUE.png\"\r\n\"E:\\GalGames_Work\\OnWork\\零れ落ちる少女たち ～パパ活JC快楽堕ちの記録～\\patch\\TITLE_BTN_CONTINUE.PGD\"\r\n\"E:\\GalGames_Work\\OnWork\\零れ落ちる少女たち ～パパ活JC快楽堕ちの記録～\\patch\\TITLE_BTN_CONTINUE.png\""
+    }
+  }
+}
