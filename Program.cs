@@ -21,7 +21,7 @@ namespace PGDTool
             {
                 PGDSprite sprite = new(args[1]);
                 sprite.FromPNG(args[2]);
-                sprite.Pack(args[1]+"N");
+                sprite.Pack(args[3]);
             }
             else
             {
