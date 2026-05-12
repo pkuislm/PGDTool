@@ -96,6 +96,72 @@ namespace PGDTool
                     _nodePos[i] = -1;
             }
 
+            public void InsertOnly(int pos, int remaining)
+            {
+                if (remaining < MinMatch)
+                    return;
+
+                int slot = pos & RingMask;
+
+                DeleteNode(slot);
+
+                _nodePos[slot] = pos;
+
+                // 限制的最大匹配大小。过小会影响压缩率
+                int maxLen = Math.Min(256, remaining);
+
+                int cmp = 1;
+                int p = RingSize + 1 + _src[pos];
+
+                _lson[slot] = Nil;
+                _rson[slot] = Nil;
+
+                while (true)
+                {
+                    if (cmp >= 0)
+                    {
+                        if (_rson[p] != Nil)
+                        {
+                            p = _rson[p];
+                        }
+                        else
+                        {
+                            _rson[p] = slot;
+                            _dad[slot] = p;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (_lson[p] != Nil)
+                        {
+                            p = _lson[p];
+                        }
+                        else
+                        {
+                            _lson[p] = slot;
+                            _dad[slot] = p;
+                            return;
+                        }
+                    }
+
+                    int oldPos = _nodePos[p];
+
+                    int i = 1;
+                    for (; i < maxLen; i++)
+                    {
+                        cmp = _src[pos + i] - _src[oldPos + i];
+                        if (cmp != 0)
+                            break;
+                    }
+
+                    if (i >= maxLen)
+                        break;
+                }
+
+                ReplaceNode(p, slot);
+            }
+
             public Match InsertAndFind(int pos, int remaining)
             {
                 if (remaining < MinMatch)
@@ -362,7 +428,7 @@ namespace PGDTool
                     // 当前 srcPos 已经在 InsertAndFind 里插入过了。
                     // 匹配跨过的中间位置也要插入树，否则后续窗口不完整。
                     for (var p = oldSrcPos + 1; p < srcPos; p++)
-                        tree.InsertAndFind(p, srcSize - p);
+                        tree.InsertOnly(p, srcSize - p);
 
                     UpdateHeader();
                 }
